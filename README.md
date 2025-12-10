@@ -115,18 +115,26 @@ DELETE
 
 <img width="1009" height="384" alt="image" src="https://github.com/user-attachments/assets/fd32e825-51bd-4384-ab62-2407defa8863" />
 
-✔ Completed in this task
+🧪 Automated Tests
 
-Flask API setup
+Tests written using pytest
 
-Authentication endpoint
+Run tests:
 
-Task create
+python -m pytest src/apps/backend/tests/test_tasks.py -q
 
-Task read
+<img width="878" height="68" alt="automated_test" src="https://github.com/user-attachments/assets/24755ff1-69f6-4a8b-8bfa-5b8b0c69731f" />
 
-Task update
+All tests passing:
+✔ create
+✔ get
+✔ update
+✔ delete
 
-Task delete
+HARITHA R
+RAJALAKSHMI ENGINEERING COLLEGE
+TASK-1
+
+
 
 
