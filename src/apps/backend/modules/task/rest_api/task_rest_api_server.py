@@ -8,3 +8,4 @@ class TaskRestApiServer:
     def create() -> Blueprint:
         task_api_blueprint = Blueprint("task", __name__)
         return TaskRouter.create_route(blueprint=task_api_blueprint)
+    

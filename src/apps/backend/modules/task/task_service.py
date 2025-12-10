@@ -1,34 +1,43 @@
-from modules.application.common.types import PaginationResult
-from modules.task.internal.task_reader import TaskReader
-from modules.task.internal.task_writer import TaskWriter
-from modules.task.types import (
-    CreateTaskParams,
-    DeleteTaskParams,
-    GetPaginatedTasksParams,
-    GetTaskParams,
-    Task,
-    TaskDeletionResult,
-    UpdateTaskParams,
-)
-
-
+# SIMPLE IN-MEMORY STORAGE FOR DEMO USE
 class TaskService:
-    @staticmethod
-    def create_task(*, params: CreateTaskParams) -> Task:
-        return TaskWriter.create_task(params=params)
+
+    tasks = {}
+    next_id = 1
 
     @staticmethod
-    def get_task(*, params: GetTaskParams) -> Task:
-        return TaskReader.get_task(params=params)
+    def create_task(*, params):
+        task = {
+            "id": TaskService.next_id,
+            "account_id": params.account_id,
+            "title": params.title,
+            "description": params.description,
+        }
+        TaskService.tasks[TaskService.next_id] = task
+        TaskService.next_id += 1
+        return task
 
     @staticmethod
-    def get_paginated_tasks(*, params: GetPaginatedTasksParams) -> PaginationResult[Task]:
-        return TaskReader.get_paginated_tasks(params=params)
+    def get_task(*, params):
+        return TaskService.tasks.get(int(params.task_id))
 
     @staticmethod
-    def update_task(*, params: UpdateTaskParams) -> Task:
-        return TaskWriter.update_task(params=params)
+    def get_paginated_tasks(*, params):
+        return list(TaskService.tasks.values())
 
     @staticmethod
-    def delete_task(*, params: DeleteTaskParams) -> TaskDeletionResult:
-        return TaskWriter.delete_task(params=params)
+    def update_task(*, params):
+        task = TaskService.tasks.get(int(params.task_id))
+        if not task:
+            return None
+        
+        task["title"] = params.title
+        task["description"] = params.description
+        return task
+
+    @staticmethod
+    def delete_task(*, params):
+        TaskService.tasks.pop(int(params.task_id), None)
+        return {"deleted": True}
+
+
+
