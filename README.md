@@ -1,27 +1,132 @@
-# Flask React Template
+Task 1 — Flask Backend CRUD API
 
-Boilerplate project for Flask, React & MongoDB based projects. This README documents the steps necessary to get the application up and running, and various components of the application.
+This project implements backend APIs using Flask as requested in the assessment.
+It includes:
 
-| Build Status                                                                                                                                                                                                                                     | Code Coverage                                                                                                                                                                                                                                                                                                   |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [![Production Deploy](https://github.com/jalantechnologies/rflask-boilerplate/actions/workflows/production_on_push.yml/badge.svg?branch=main)](https://github.com/jalantechnologies/rflask-boilerplate/actions/workflows/production_on_push.yml) | [![Code Coverage](https://sonarqube.platform.jalantechnologies.com/api/project_badges/measure?project=jalantechnologies_rflask-boilerplate&metric=coverage&token=a4dd71c68afbb8da4b7ed1026329bf0933298f79)](https://sonarqube.platform.jalantechnologies.com/dashboard?id=jalantechnologies_rflask-boilerplate) |
+✔ Simple authentication
+✔ GET tasks
+✔ CREATE tasks
+✔ UPDATE tasks
+✔ DELETE tasks
 
-## Documentation Directory
+All APIs were tested using Thunder Client.
 
-- [Getting Started](docs/getting-started.md)
-- [Backend Architecture](docs/backend-architecture.md)
-- [Logging](docs/logging.md)
-- [Configuration](docs/configuration.md)
-- [Secrets](docs/secrets.md)
-- [Bootstrapping](docs/bootstrapping.md)
-- [Scripts](docs/scripts.md)
-- [Code Formatting](docs/code-formatting.md)
-- [Workers](docs/workers.md)
-- [Deployment](docs/deployment.md)
-- [Running Scripts in Production](docs/running-scripts-in-production.md)
+🚀 Run Backend
 
-## Best Practices
+Open Terminal in backend folder:
 
-Once you have familiarized yourself with the documentation, head over to the [Engineering Handbook](https://github.com/jalantechnologies/handbook/blob/main/engineering/index.md) to learn about the best practices we follow at Better Software.
+cd src/apps/backend
+python server.py
 
-PS: Before you start working on the application, these [three git settings](https://spin.atomicobject.com/git-configurations-default/) are a must-have!
+
+Then backend starts at:
+
+http://127.0.0.1:5000
+
+AUTH (Login)
+
+POST
+
+/api/auth/access-tokens
+
+
+Body
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+
+
+Response
+
+{
+  "access_token": "TEST_TOKEN"
+}
+
+<img width="1356" height="431" alt="image" src="https://github.com/user-attachments/assets/910b3e9e-8fc2-49ce-8a78-b44e98f9e3af" />
+
+
+
+Use this header for all task APIs:
+
+Authorization: Bearer TEST_TOKEN
+
+🧩 TASKS CRUD API (main part of this task)
+
+Base URL:
+
+/api/accounts/1/tasks
+
+➕ Create Task
+
+POST
+
+/api/accounts/1/tasks
+
+
+Body
+
+{
+  "title": "First task",
+  "description": "Testing"
+}
+
+<img width="1011" height="365" alt="image" src="https://github.com/user-attachments/assets/ad63556e-93cb-41cc-97e2-b3aa68af2aaf" />
+
+
+📥 Get All Tasks
+
+GET
+
+/api/accounts/1/tasks
+
+🔍 Get One Task
+
+GET
+
+/api/accounts/1/tasks/1
+
+<img width="1014" height="374" alt="image" src="https://github.com/user-attachments/assets/4fc76d42-56f1-4064-a154-67a05e6c1660" />
+
+
+✏ Update Task
+
+PATCH
+
+/api/accounts/1/tasks/1
+
+
+Body
+
+{
+  "title": "Updated",
+  "description": "Updated description"
+}
+
+<img width="1014" height="382" alt="image" src="https://github.com/user-attachments/assets/2bce44fe-e4eb-4f42-8953-20e7dd75ea1b" />
+
+❌ Delete Task
+
+DELETE
+
+/api/accounts/1/tasks/1
+
+<img width="1009" height="384" alt="image" src="https://github.com/user-attachments/assets/fd32e825-51bd-4384-ab62-2407defa8863" />
+
+✔ Completed in this task
+
+Flask API setup
+
+Authentication endpoint
+
+Task create
+
+Task read
+
+Task update
+
+Task delete
+
+
