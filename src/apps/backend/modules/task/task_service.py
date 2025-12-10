@@ -1,43 +1,48 @@
-# SIMPLE IN-MEMORY STORAGE FOR DEMO USE
 class TaskService:
 
     tasks = {}
     next_id = 1
 
     @staticmethod
-    def create_task(*, params):
+    def create_task(account_id, body):
         task = {
             "id": TaskService.next_id,
-            "account_id": params.account_id,
-            "title": params.title,
-            "description": params.description,
+            "account_id": account_id,
+            "title": body["title"],
+            "description": body["description"],
         }
         TaskService.tasks[TaskService.next_id] = task
         TaskService.next_id += 1
         return task
 
-    @staticmethod
-    def get_task(*, params):
-        return TaskService.tasks.get(int(params.task_id))
 
     @staticmethod
-    def get_paginated_tasks(*, params):
+    def get_task(account_id, task_id):
+        return TaskService.tasks.get(int(task_id))
+
+
+    @staticmethod
+    def get_tasks(account_id):
         return list(TaskService.tasks.values())
 
-    @staticmethod
-    def update_task(*, params):
-        task = TaskService.tasks.get(int(params.task_id))
-        if not task:
-            return None
-        
-        task["title"] = params.title
-        task["description"] = params.description
-        return task
 
     @staticmethod
-    def delete_task(*, params):
-        TaskService.tasks.pop(int(params.task_id), None)
-        return {"deleted": True}
+    def update_task(account_id, task_id, body):
+        task = TaskService.tasks.get(int(task_id))
+        if not task:
+            return None
+
+        task["title"] = body.get("title", task["title"])
+        task["description"] = body.get("description", task["description"])
+
+        return task
+
+
+    @staticmethod
+    def delete_task(account_id, task_id):
+        TaskService.tasks.pop(int(task_id), None)
+
+
 
 
 
